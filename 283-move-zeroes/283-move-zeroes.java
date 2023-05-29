@@ -1,18 +1,15 @@
 class Solution {
     public void moveZeroes(int[] nums) {
-        int n = nums.length;
-        for (int i = 0; i < n - 1; i++) {
-            if (nums[i] == 0) {
-                // find next non zero
-                int j = i + 1;
-                while (j < n && nums[j] == 0) {
-                    j++;
-                }
-
-                
-                if (j < n) {
-                    swap(nums, i, j);
-                }
+        int i = 0;
+        int j = 0;
+        
+        while (j < nums.length) {
+            if (nums[j] == 0) {
+                j++;
+            } else {
+                swap(nums, i, j);
+                i++;
+                j++;
             }
         }
     }
