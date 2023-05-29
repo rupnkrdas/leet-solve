@@ -11,12 +11,7 @@ class Solution {
         while (j < n) {
             map.put(arr[j], map.getOrDefault(arr[j], 0) + 1);
             
-            if (map.size() < 2) {
-                maxi = Math.max(j - i + 1, maxi);
-                j++;
-            }
-            
-            else if (map.size() == 2) {
+            if (map.size() <= 2) {
                 maxi = Math.max(j - i + 1, maxi);
                 j++;
             }
