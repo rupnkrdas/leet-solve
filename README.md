@@ -13,6 +13,6 @@ The repository is organized into folders, where each folder corresponds to a spe
 
 Each commit message includes information about the time and space complexity of the solution. Please refer to the commit history for more details about the complexity analysis.
 
-Feel free to explore the solutions and the explanations provided in each problem's README file. If you have any questions or suggestions, please don't hesitate to reach out.
+Feel free to explore the solutions. If you have any questions or suggestions, please don't hesitate to reach out.
 
 ![HAPPY LEETCODING](happy-leetcoding.svg)
