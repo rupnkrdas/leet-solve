@@ -9,22 +9,24 @@
  * }
  */
 class Solution {
-    // iterative reversal solution
     public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        
-        ListNode prev = null;
-        ListNode curr = head;
+        return solve(head);
+    }
 
-        while (curr != null) {
-            ListNode temp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = temp;
-        }
+    public ListNode solve(ListNode head) {
+        // base-case
+        if (head == null || head.next == null) return head;
 
-        return prev;
+        // hypothesis
+        ListNode reversedHead = solve(head.next);
+        // get the tail of the newly reversed linkedlist
+        ListNode node = reversedHead;
+        while (node.next != null) node = node.next;
+        // node points to the tail
+        // attach the previous head
+        node.next = head;
+        head.next = null;
+
+        return reversedHead;
     }
 }
