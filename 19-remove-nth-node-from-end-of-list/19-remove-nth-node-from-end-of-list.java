@@ -10,39 +10,21 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        // remove nth node from last => remove length - n + 1th node from first
-        n = findLength(head) - n; // index
-        System.out.println(n);
-        if (n == 0) return head.next;
+        ListNode dummyHead = new ListNode(-1, head);
+        ListNode left = dummyHead;
+        ListNode right = head;
 
-        int index = 0;
-        ListNode curr = head;
-        ListNode prev = null;
-        while (curr != null) {
-            if (index == n) {
-                ListNode temp = curr.next;
-                curr = curr.next;
-                prev.next = temp;
-                return head;
-            } else {
-                prev = curr;
-                curr = curr.next;
-            }
-            index++;
+        while (n > 0) {
+            right = right.next;
+            n--;
         }
 
-        return head;
-    }
-
-    public int findLength(ListNode head) {
-        int count = 0;
-        ListNode curr = head;
-
-        while (curr != null) {
-            count++;
-            curr = curr.next;
+        while (right != null) {
+            left = left.next;
+            right = right.next;
         }
+        left.next = left.next.next;
 
-        return count;
+        return dummyHead.next;
     }
 }
