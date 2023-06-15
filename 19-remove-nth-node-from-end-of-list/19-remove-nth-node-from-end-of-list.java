@@ -23,6 +23,7 @@ class Solution {
                 ListNode temp = curr.next;
                 curr = curr.next;
                 prev.next = temp;
+                return head;
             } else {
                 prev = curr;
                 curr = curr.next;
