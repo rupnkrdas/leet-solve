@@ -3,41 +3,45 @@ class Solution {
     int[] delJ = {0, 1, 0, -1};
     int n;
     int m;
+    long[][] dp;
     long MOD = (long)(1e9 + 7);
-    Map<String, Long> map = new HashMap<>();
     public int countPaths(int[][] grid) {
         n = grid.length;
         m = grid[0].length;
-        long count = 0;
+        dp = new long[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                count++;
-                count += dfs(i, j, grid) % MOD;
+                dp[i][j] = -1;
             }
         }
 
-        return (int)(count % MOD);
-    }
-
-    public long dfs(int i, int j, int[][] grid) {
-        String key = Integer.toString(i) + "," + Integer.toString(j);
-        if (map.containsKey(key)) {
-            return map.get(key) % MOD;
+        long count = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                count += solve(i, j, grid)%MOD;
+            }
         }
 
-        long count = 0;
+        return (int)(count%MOD);
+    }
+
+    public long solve(int i, int j, int[][] grid) {
+        if (dp[i][j] != -1) return dp[i][j];
+
+        long paths = 1;
         for (int k = 0; k < 4; k++) {
             int ni = i + delI[k];
             int nj = j + delJ[k];
 
-            if (ni >= 0 && ni < n
-            && nj >= 0 && nj < m
-            && grid[ni][nj] < grid[i][j]) {
-                count += 1 + dfs(ni, nj, grid) % MOD;
+            if (isSafe(ni, nj) && grid[ni][nj] > grid[i][j]) {
+                paths = paths%MOD + solve(ni, nj, grid)%MOD;
             }
         }
 
-        map.put(key, count % MOD);
-        return count % MOD;
+        return dp[i][j] = paths%MOD;
+    }
+
+    public boolean isSafe(int i, int j) {
+        return (i >= 0 && i < n && j >= 0 && j < m);
     }
 }
