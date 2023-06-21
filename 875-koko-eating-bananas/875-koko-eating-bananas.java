@@ -40,16 +40,4 @@ class Solution {
 
         return time <= h;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
