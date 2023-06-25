@@ -1,7 +1,7 @@
 class Solution {
     int MOD = (int)(1e9+7);
     int endCity;
-    int[][] dp = new int[101][401];
+    int[][] dp = new int[101][201];
     public int countRoutes(int[] locations, int start, int finish, int fuel) {
         endCity = finish;
         for (int[] row : dp) {
@@ -14,7 +14,7 @@ class Solution {
     public int f(int city, int fuel, int[] loc, int n) {
         if (fuel < 0) return 0;
 
-        if (dp[city][fuel + 200] != -1) return dp[city][fuel + 200];
+        if (dp[city][fuel] != -1) return dp[city][fuel];
 
         // choices
         // 0 <- n-1, i != city
@@ -26,6 +26,6 @@ class Solution {
             }
         }
 
-        return dp[city][fuel + 200] = (int)(ways % MOD);
+        return dp[city][fuel] = (int)(ways % MOD);
     }
 }
