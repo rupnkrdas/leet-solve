@@ -1,11 +1,9 @@
 class Solution {
     public boolean asteroidsDestroyed(int mass, int[] a) {
-        List<Integer> asteroids = new ArrayList<>();
-        for (int num : a) asteroids.add(num);
-        Collections.sort(asteroids);
+        Arrays.sort(a);
 
         long total = mass;
-        for (int ast : asteroids) {
+        for (int ast : a) {
             if (total >= ast) {
                 total += (long)ast;
             } else {
