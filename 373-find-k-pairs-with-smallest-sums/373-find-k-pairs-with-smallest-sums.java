@@ -34,9 +34,9 @@ class Solution {
                 if (i + 1 < n) heap.offer(new Tuple(nums1[i + 1] + nums2[j], i + 1, j));
                 if (j + 1 < m) heap.offer(new Tuple(nums1[i] + nums2[j + 1], i, j + 1));
                 if (i + 1 < n && j + 1 < m) heap.offer(new Tuple(nums1[i + 1] + nums2[j + 1], i + 1, j + 1));
-            } else if (i > j && i + 1 < n) {
+            } else if (i > j && i + 1 < n) { // go down
                 heap.offer(new Tuple(nums1[i + 1] + nums2[j], i + 1, j));
-            } else if (j > i && j + 1 < m) {
+            } else if (j > i && j + 1 < m) { // go right
                 heap.offer(new Tuple(nums1[i] + nums2[j + 1], i, j + 1));
             }
         }
