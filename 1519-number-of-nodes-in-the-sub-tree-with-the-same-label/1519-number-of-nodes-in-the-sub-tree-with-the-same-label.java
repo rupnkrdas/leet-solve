@@ -14,8 +14,6 @@ class Solution {
             adj.get(u).add(v);
             adj.get(v).add(u);
         }
-
-        int[] vis = new int[n];
         
         int[] letters = new int[26];
         solve(0, -1, adj, arr, ans, letters);
