@@ -8,27 +8,17 @@ class Pair {
     }
 }
 class Solution {
-    public int[] dijkstra(int start, List<List<Integer>> adj, int n) {
-        int[] ans = new int[n];
-        Arrays.fill(ans, (int)(1e9));
-        ans[start] = 0;
+    public void dfs(int node, List<List<Integer>> adj, int distance, int[] dist, int[] vis) {
+        vis[node] = 1;
 
-        PriorityQueue<Pair> pq = new PriorityQueue<>((x, y) -> x.first - y.first);
-        pq.offer(new Pair(0, start));
-        while (!pq.isEmpty()) {
-            Pair pair = pq.poll();
-            int distance = pair.first;
-            int node = pair.second;
-
-            for (int adjNode : adj.get(node)) {
-                if (distance + 1 < ans[adjNode]) {
-                    ans[adjNode] = distance + 1;
-                    pq.offer(new Pair(ans[adjNode], adjNode));
+        for (int adjNode : adj.get(node)) {
+            if (vis[adjNode] == 0) {
+                if (distance + 1 < dist[adjNode]) {
+                    dist[adjNode] = distance + 1;
                 }
+                dfs(adjNode, adj, distance + 1, dist, vis);
             }
         }
-
-        return ans;
     }
 
     public int closestMeetingNode(int[] edges, int node1, int node2) {
@@ -48,21 +38,29 @@ class Solution {
 
         // System.out.println(adj);
 
-        int[] dist1 = dijkstra(node1, adj, n);
+        int[] dist1 = new int[n];
+        int[] vis = new int[n];
+        Arrays.fill(dist1, Integer.MAX_VALUE);
+        dist1[node1] = 0;
+        dfs(node1, adj, 0, dist1, vis);
         System.out.println(Arrays.toString(dist1));
-        int[] dist2 = dijkstra(node2, adj, n);
+
+        int[] dist2 = new int[n];
+        Arrays.fill(dist2, Integer.MAX_VALUE);
+        dist2[node2] = 0;
+        Arrays.fill(vis, 0);
+        dfs(node2, adj, 0, dist2, vis);
         System.out.println(Arrays.toString(dist2));
 
-        int ans = 0;
-        int maxi = (int)(1e9);
+        int ans = -1;
+        int minDistanceTillNode = Integer.MAX_VALUE;
         for (int i = 0; i < n; i++) {
-            int d1 = dist1[i];
-            int d2 = dist2[i];
-            if (Math.max(d1, d2) < maxi) {
-                maxi = Math.max(d1, d2);
+            if (Math.max(dist1[i], dist2[i]) < minDistanceTillNode) {
+                minDistanceTillNode = Math.max(dist1[i], dist2[i]);
                 ans = i;
             }
         }
-        return (maxi == (int)(1e9)) ? -1 : ans;
+
+        return ans;
     }
 }
