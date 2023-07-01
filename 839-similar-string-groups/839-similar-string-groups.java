@@ -32,32 +32,14 @@ class DS {
     }
 }
 class Solution {
-     public boolean areStringsSimilar(String X, String Y) {
-        if (X.equals(Y)) {
-            return true; // X and Y are identical
+     public boolean areSimilar(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        int diff = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) diff++;
         }
-        
-        if (X.length() != Y.length()) {
-            return false; // X and Y have different lengths, not similar
-        }
-        
-        int firstMismatch = -1;
-        int secondMismatch = -1;
-        
-        for (int i = 0; i < X.length(); i++) {
-            if (X.charAt(i) != Y.charAt(i)) {
-                if (firstMismatch == -1) {
-                    firstMismatch = i;
-                } else if (secondMismatch == -1) {
-                    secondMismatch = i;
-                } else {
-                    return false; // More than two mismatches, not similar
-                }
-            }
-        }
-        
-        return (secondMismatch != -1 && X.charAt(firstMismatch) == Y.charAt(secondMismatch)
-                && X.charAt(secondMismatch) == Y.charAt(firstMismatch));
+
+        return (diff == 2) || (diff == 0);
     }
     public int numSimilarGroups(String[] strs) {
         int n = strs.length;
@@ -65,7 +47,7 @@ class Solution {
 
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                if (areStringsSimilar(strs[i], strs[j])) {
+                if (areSimilar(strs[i], strs[j])) {
                     ds.union(i, j);
                 }
             }
