@@ -6,21 +6,23 @@ class Solution {
         return (int)(f(0, s, k)) % MOD;
     }
 
-    public int f(int idx, String s, int k) {
-        if (idx >= s.length()) return 1;
+    public int f(int start, String s, int k) {
+        if (start >= s.length()) return 1;
+        if (s.charAt(start) == '0') return 0;
 
-        if (dp[idx] != -1) return dp[idx];
+        if (dp[start] != -1) return dp[start];
 
         long total_ways = 0;
-        for (int i = idx + 1; i <= s.length(); i++) {
-            String s_ = s.substring(idx, i);
-            if (s_.charAt(0) != '0' && Long.parseLong(s_) <= (long)k) {
-                total_ways = total_ways % MOD + f(i, s, k) % MOD;
+        long num = 0;
+        for (int end = start; end < s.length(); end++) {
+            num = num*10 + (long)(s.charAt(end) - '0');
+            if (num <= k) {
+                total_ways = total_ways % MOD + f(end + 1, s, k) % MOD;
             } else {
                 break;
             }
         }
 
-        return dp[idx] = (int)(total_ways % MOD);
+        return dp[start] = (int)(total_ways % MOD);
     }
 }
