@@ -1,5 +1,5 @@
 class Solution {
-    int[][] dp = new int[1001][2001];
+    int[][] dp = new int[1001][1001];
     public int minSteps(int n) {
         for (int[] row : dp) {
             Arrays.fill(row, -1);
