@@ -1,38 +1,43 @@
 class Solution {
-    Map<String, Integer> map = new HashMap<>();
     public int maxNonDecreasingLength(int[] nums1, int[] nums2) {
         int n = nums1.length;
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            int x = 1 + f(i + 1, nums1, nums2, nums1[i]);
-            int y = 1 + f(i + 1, nums1, nums2, nums2[i]);
-            ans = Math.max(ans, Math.max(x, y));
-        }
-        
-        return ans;
-    }
+        int[][] dp = new int[n + 1][2]; // dp[i][0] <--- maxNonDecreasingLength ending at index i in nums1
+                                                 // dp[i][1] <--- maxNonDecreasingLength ending at index i in nums2
 
-    public int f(int idx, int[] nums1, int[] nums2, int prev) {
-        if (idx >= nums1.length) return 0;
-
-        String key = Integer.toString(idx) + "," + Integer.toString(prev);
-        if (map.containsKey(key)) return map.get(key);
-
-        int len = 0;
-        if (nums1[idx] >= prev && nums2[idx] >= prev) {
-            int x = f(idx + 1, nums1, nums2, nums1[idx]);
-            int y = f(idx + 1, nums1, nums2, nums2[idx]);
-
-            len = 1 + Math.max(x, y);
-        }
-        else if (nums1[idx] >= prev) {
-            len = 1 + f(idx + 1, nums1, nums2, nums1[idx]);
-        }
-        else if (nums2[idx] >= prev) {
-            len = 1 + f(idx + 1, nums1, nums2, nums2[idx]);
+        for (int[] row : dp) {
+            Arrays.fill(row, 1); // minimum eligible length
         }
 
-        map.put(key, len);
-        return len;
+        int best = 1;
+        for (int i = 1; i < n; i++) {
+            int op1 = 0;
+            int op2 = 0;
+            if (nums1[i] >= nums1[i - 1]) {
+                // dp[i][0] = Math.max(dp[i][0], 1 + dp[i - 1][0]);
+                op1 = Math.max(dp[i][0], 1 + dp[i - 1][0]);
+            }
+            if (nums1[i] >= nums2[i - 1]) {
+                // dp[i][0] = Math.max(dp[i][0], 1 + dp[i - 1][1]);
+                op2 = Math.max(dp[i][0], 1 + dp[i - 1][1]);
+            }
+            dp[i][0] = Math.max(dp[i][0], Math.max(op1, op2));
+
+            int op3 = 0;
+            int op4 = 0;
+            if (nums2[i] >= nums2[i - 1]) {
+                // dp[i][1] = Math.max(dp[i][1], 1 + dp[i - 1][1]);
+                op3 = Math.max(dp[i][1], 1 + dp[i - 1][1]);
+            }
+            if (nums2[i] >= nums1[i - 1]) {
+                // dp[i][1] = Math.max(dp[i][1], 1 + dp[i - 1][0]);
+                op4 = Math.max(dp[i][1], 1 + dp[i - 1][0]);
+            }
+            dp[i][1] = Math.max(dp[i][1], Math.max(op3, op4));
+            
+
+            best = Math.max(best, Math.max(dp[i][0], dp[i][1]));
+        }
+
+        return best;
     }
 }
