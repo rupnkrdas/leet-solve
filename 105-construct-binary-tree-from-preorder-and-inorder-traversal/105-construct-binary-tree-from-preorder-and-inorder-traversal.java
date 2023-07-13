@@ -17,15 +17,16 @@ class Solution {
     Map<Integer, Integer> in_map = new HashMap<>(); // (num) -> (index)
     int[] pre;
     int[] in;
-    private TreeNode f(int pre_start, int pre_end, int in_start, int in_end) {
-        if (pre_start > pre_end || in_start > in_end) return null;
+    private TreeNode f(int[] idx, int in_start, int in_end) {
+        if (in_start > in_end) return null;
         
-        TreeNode root = new TreeNode(pre[pre_start]);
-        int in_index = in_map.get(root.val);
-        int nums_left = in_index - in_start;
+        int root_val = pre[idx[0]];
+        TreeNode root = new TreeNode(root_val);
+        int in_index = in_map.get(root_val);
+        idx[0]++;
         
-        root.left = f(pre_start + 1, pre_start + nums_left, in_start, in_index - 1);
-        root.right = f(pre_start + nums_left + 1, pre_end, in_index + 1, in_end);
+        root.left = f(idx, in_start, in_index - 1);
+        root.right = f(idx, in_index + 1, in_end);
         
         return root;
     }
@@ -37,22 +38,6 @@ class Solution {
             in_map.put(inorder[i], i);
         }
 
-        return f(0, n - 1, 0, n - 1);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        return f(new int[]{0}, 0, n - 1);
+    }   
 }
