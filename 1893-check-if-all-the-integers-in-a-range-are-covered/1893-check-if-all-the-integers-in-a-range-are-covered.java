@@ -1,6 +1,6 @@
 class Solution {
     public boolean isCovered(int[][] ranges, int left, int right) {
-        Map<Integer, Integer> map = new TreeMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int[] r : ranges) {
             map.put(r[0], map.getOrDefault(r[0], 0) + 1);
             map.put(r[1] + 1, map.getOrDefault(r[1] + 1, 0) - 1);
