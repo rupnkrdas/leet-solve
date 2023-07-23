@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    Map<Integer, List<TreeNode>> map = new HashMap<>();
     private List<TreeNode> f(int n) {
         if (n % 2 == 0) { // even
             return new ArrayList<>();
@@ -24,6 +25,10 @@ class Solution {
             List<TreeNode> list = new ArrayList<>();
             list.add(node);
             return list;
+        }
+
+        if (map.containsKey(n)) {
+            return map.get(n);
         }
         
 
@@ -42,6 +47,7 @@ class Solution {
             }
         }
 
+        map.put(n, list);
         return list;
     }
     public List<TreeNode> allPossibleFBT(int n) {
