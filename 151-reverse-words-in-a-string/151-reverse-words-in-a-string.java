@@ -2,31 +2,27 @@ class Solution {
     public String reverseWords(String s) {
         char[] arr = s.toCharArray();
         int n = arr.length;
-        List<String> list = new ArrayList<>();
 
+        String res = "";
         String str = "";
-        for (int i = 0; i < n; i++) {
+        for (int i = n - 1; i >= 0; i--) {
             char c = arr[i];
             
             if (c == ' ') {
                 if (!str.isEmpty()) {
-                    list.add(str);
+                    res += str + " ";
                 }
                 str = "";
             } else {
-                str += c;
+                str = c + str;
             }
         }
 
         if (!str.isEmpty()) {
-            list.add(str);
+            res += str + " ";
         }
 
-        String res = "";
-        for (int i = list.size() - 1; i >= 0; i--) {
-            res += list.get(i) + " ";
-        }
-
+        // System.out.println("'" + res + "'");
         return res.substring(0, res.length() - 1);
     }
 }
