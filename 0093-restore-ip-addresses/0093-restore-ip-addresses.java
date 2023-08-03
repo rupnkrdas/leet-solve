@@ -12,6 +12,8 @@ class Solution {
 
             return;
         }
+        
+        if (count > 4) return;
 
         String before = temp;
         String num = "";
