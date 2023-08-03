@@ -21,7 +21,7 @@ class Solution {
             num += s.charAt(i);
             // System.out.println(num);
             // System.out.println(containsLeadingZeroes(num));
-            int val = Integer.parseInt(num);
+            int val = Integer.valueOf(num);
             if (val >= 0 && val <= 255 && !containsLeadingZeroes(num)) {
                 temp += num + ".";
                 f(i + 1, s, temp, count + 1);
