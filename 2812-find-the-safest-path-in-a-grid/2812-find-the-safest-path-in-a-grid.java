@@ -70,9 +70,9 @@ class Solution {
         int[][] g = new int[n][m];
         int[][] vis = new int[n][m];
         fill_grid(grid, g, vis);
-        for (int[] row : g) {
-            System.out.println(Arrays.toString(row));
-        }
+        // for (int[] row : g) {
+        //     System.out.println(Arrays.toString(row));
+        // }
 
         int start = 0;
         int end = Math.min(n, m);
