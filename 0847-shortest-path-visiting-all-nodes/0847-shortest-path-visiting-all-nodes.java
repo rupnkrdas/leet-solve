@@ -47,7 +47,7 @@ class Solution {
     public int shortestPathLength(int[][] graph) {
         int n = graph.length;
         TARGET_MASK = (int)Math.pow(2, n) - 1;
-        System.out.println(Integer.toBinaryString(TARGET_MASK));  
+        // System.out.println(Integer.toBinaryString(TARGET_MASK));  
         int mini = Integer.MAX_VALUE;
         for (int i = 0; i < n; i++) {
             int minFromNode = f(i, graph);
