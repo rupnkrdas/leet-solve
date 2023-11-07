@@ -19,7 +19,7 @@ class Solution {
         int cnt = 0;
 
         for (int i = 0; i < time.length; i++) {
-            System.out.println(cnt);  
+            // System.out.println(cnt);  
             if (chargeTime < time[i]) {
                 cnt++;
                 chargeTime += 1;
