@@ -1,4 +1,7 @@
 class Solution {
+    public boolean isSafe(int i, int j, int n, int m) {
+        return (i >= 0 && i < n && j >= 0 && j < m);
+    }
     public int[][] imageSmoother(int[][] img) {
         int n = img.length;
         int m = img[0].length;
@@ -8,10 +11,13 @@ class Solution {
             for (int j = 0; j < m; j++) {
                 int sum = 0;
                 int count = 0;
-                for (int i_ = i - 1; i_ <= i + 1; i_++) {
-                    for (int j_ = j - 1; j_ <= j + 1; j_++) {
-                        if ((i_ >= 0) && (i_ < n) && (j_ >= 0) && (j_ < m)) {
-                            sum += img[i_][j_];
+                for (int dx = -1; dx <= 1; dx++) {
+                    for (int dy = -1; dy <= 1; dy++) {
+                        int ni = i + dx;
+                        int nj = j + dy;
+
+                        if (isSafe(ni, nj, n, m)) {
+                            sum += img[ni][nj];
                             count++;
                         }
                     }
