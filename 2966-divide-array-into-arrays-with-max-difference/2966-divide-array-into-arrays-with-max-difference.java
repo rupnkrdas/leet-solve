@@ -6,18 +6,14 @@ class Solution {
 
         Arrays.sort(nums);
         int[][] ans = new int[n/3][3];
-        int ans_idx = 0;
+        int idx = 0;
         for (int i = 0; i < n; i += 3) {
-            List<Integer> list = new ArrayList<>();
-            for (int j = i; j < i + 3; j++) {
-                list.add(nums[j]);
-            }
+            if (nums[i + 2]-nums[i] > k) return new int[][]{};
 
-            if (list.get(2)-list.get(0) > k) return new int[][]{};
-            for (int idx = 0; idx < 3; idx++) {
-                ans[ans_idx][idx] = list.get(idx);
+            for (int j = i; j < i + 3; j++) {
+                ans[idx][j-i] = nums[j];
             }
-            ans_idx++;
+            idx++;
         }
 
         return ans;
